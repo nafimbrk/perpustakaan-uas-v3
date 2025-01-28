@@ -21,6 +21,8 @@ return new class extends Migration
             $table->integer('tahun_terbit');
             $table->string('penerbit');
             $table->integer('jumlah_halaman');
+            $table->boolean('pinjam')->default(false);
+            $table->boolean('favorit')->default(false);
             $table->timestamps();
         });
     }

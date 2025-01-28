@@ -9,41 +9,73 @@ use App\Models\Peminjaman;
 class SyncController extends Controller
 {
     public function syncData(Request $request)
-    {
-        $logs = $request->all();  // Mengambil semua log yang dikirimkan
-    
-        if (empty($logs)) {
-            return response()->json(['message' => 'Data tidak valid'], 400);
-        }
-    
-        // Proses setiap entri dalam log
-        foreach ($logs as $log) {
-            if (!isset($log['operation']) || !isset($log['table'])) {
-                return response()->json(['message' => 'Operasi atau tabel tidak ditemukan'], 400);
-            }
-    
-            if (isset($log['data'])) {
-                $data = $log['data'];
-                if (isset($data['recordId'])) {  // Gunakan recordId yang dikirimkan dari frontend
-                    // Lakukan operasi insert atau update
-                    if ($log['operation'] === 'insert' || $log['operation'] === 'update') {
-                        Books::updateOrCreate(
-                            ['id' => $data['recordId']],  // Ganti id dengan recordId
-                            $data
-                        );
-                    } elseif ($log['operation'] === 'delete') {
-                        Books::where('id', $data['recordId'])->delete();  // Ganti id dengan recordId
-                    }
-                } else {
-                    return response()->json(['message' => 'Data buku tidak lengkap'], 400);
-                }
-            } else {
-                return response()->json(['message' => 'Data tidak ditemukan'], 400);
-            }
-        }
-    
-        return response()->json(['message' => 'Data berhasil disinkronkan']);
+{
+    $logs = $request->all();  // Mengambil semua log yang dikirimkan
+
+    if (empty($logs)) {
+        return response()->json(['message' => 'Data tidak valid', 'data' => $logs], 400);
     }
+
+    foreach ($logs as $log) {
+        if (!isset($log['operation']) || !isset($log['table'])) {
+            return response()->json(['message' => 'Operasi atau tabel tidak ditemukan', 'log' => $log], 400);
+        }
+
+        $operation = strtolower($log['operation']);
+        if (!in_array($operation, ['insert', 'update', 'delete'])) {
+            return response()->json(['message' => 'Operasi tidak dikenal', 'log' => $log], 400);
+        }
+
+        // Menangani operasi update
+        if ($operation === 'update' && isset($log['changes'])) {
+            $data = $log['changes']['after'];
+            if (isset($data['recordId'])) {
+                Books::updateOrCreate(
+                    ['id' => $data['recordId']],
+                    $data
+                );
+            } else {
+                return response()->json(['message' => 'Data buku tidak lengkap', 'log' => $log], 400);
+            }
+        } 
+        // Menangani operasi insert
+        elseif ($operation === 'insert') {
+            $data = $log['data'];
+            if (isset($data['recordId']) && !empty($data['recordId'])) {
+                // Periksa apakah data buku sudah lengkap
+                if (!isset($data['judul']) || !isset($data['pengarang']) || !isset($data['genre']) || !isset($data['tahunTerbit']) || !isset($data['penerbit']) || !isset($data['jumlahHalaman'])) {
+                    return response()->json(['message' => 'Data buku tidak lengkap', 'log' => $log], 400);
+                }
+                
+                // Menyimpan buku baru
+                Books::create($data);
+            } else {
+                return response()->json(['message' => 'Data buku tidak lengkap', 'log' => $log], 400);
+            }
+        }
+
+        // Menangani operasi delete
+        elseif ($operation === 'delete') {
+            $data = $log['data'];
+            if (isset($data['recordId']) && !empty($data['recordId'])) {
+                // Hapus data berdasarkan ID yang ada
+                Books::where('id', $data['recordId'])->delete();
+                return response()->json(['message' => 'Buku berhasil dihapus', 'log' => $log]);
+            } else {
+                return response()->json(['message' => 'Data buku tidak lengkap', 'log' => $log], 400);
+            }
+        }
+    }
+
+    return response()->json(['message' => 'Data berhasil disinkronkan']);
+}
+
+
+
+
+
+
+
     
 
 
