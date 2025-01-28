@@ -18,450 +18,332 @@
   </head>
   <body>
     <div class="container mt-4">
-      <h1 class="mb-4">Perpustakaan Digital</h1>
-
-
-      <div class="mb-3">
-        <label for="search-query" class="form-label">Pencarian</label>
-        <input
-          type="text"
-          class="form-control"
-          id="search-query"
-          placeholder="Cari berdasarkan judul, pengarang, genre, dsb."
-        />
-      </div>
+      <div class="container mt-5">
+        <h1 class="mb-4 text-center text-primary">Perpustakaan Digital</h1>
     
-      <!-- Filter genre -->
-      <div class="mb-3">
-        <label for="filter-genre" class="form-label">Filter Genre</label>
-        <select class="form-select" id="filter-genre">
-          <option value="">Semua Genre</option>
-          <option value="Fiksi">Fiksi</option>
-          <option value="Non-Fiksi">Non-Fiksi</option>
-          <option value="Sains">Sains</option>
-        </select>
-      </div>
-    
-      <!-- Filter status -->
-      <div class="mb-3">
-        <label for="filter-status" class="form-label">Filter Status</label>
-        <select class="form-select" id="filter-status">
-          <option value="">Semua Status</option>
-          <option value="tersedia">Tersedia</option>
-          <option value="dipinjam">Dipinjam</option>
-          <option value="favorit">Favorit</option>
-        </select>
-      </div>
-
-      <!-- Button to open "Create" Modal -->
-      <button
-        class="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#createModal"
-      >
-        Tambah Buku
-      </button>
-
-      <button
-  class="btn btn-secondary mt-4"
-  id="statisticsButton"
->
-  Lihat Statistik
-</button>
-      <!-- Table to display books -->
-      <table class="table table-bordered mt-4">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Judul</th>
-            <th>Pengarang</th>
-            <th>Genre</th>
-            <th>Tahun Terbit</th>
-            <th>Penerbit</th>
-            <th>Jumlah Halaman</th>
-            <th>Aksi</th>
-          </tr>
-        </thead>
-        <tbody id="tableBody">
-          <!-- Book rows will be appended here -->
-        </tbody>
-      </table>
-
-      <!-- Modal for Create -->
-      <div
-        class="modal fade"
-        id="createModal"
-        tabindex="-1"
-        aria-labelledby="createModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="createModalLabel">Tambah Buku</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
+        <!-- Pencarian & Filter -->
+        <div class="card p-4 mb-4">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="search-query" class="form-label fw-bold">Pencarian</label>
+              <input type="text" class="form-control" id="search-query" placeholder="Cari berdasarkan judul, pengarang, genre, dsb." />
             </div>
-            <div class="modal-body">
-              <label for="createJudul">Judul</label>
-              <input
-                type="text"
-                class="form-control"
-                id="createJudul"
-                required
-              />
-              <label for="createPengarang" class="mt-2">Pengarang</label>
-              <input
-                type="text"
-                class="form-control"
-                id="createPengarang"
-                required
-              />
-              <label for="createGenre" class="mt-2">Genre</label>
-              <select class="form-select" id="createGenre" required>
-                <option value="" disabled selected>Pilih Genre</option>
+            <div class="col-md-3 mb-3">
+              <label for="filter-genre" class="form-label fw-bold">Filter Genre</label>
+              <select class="form-select" id="filter-genre">
+                <option value="">Semua Genre</option>
                 <option value="Fiksi">Fiksi</option>
                 <option value="Non-Fiksi">Non-Fiksi</option>
                 <option value="Sains">Sains</option>
               </select>
-              <label for="createTahunTerbit" class="mt-2">Tahun Terbit</label>
-              <input
-                type="number"
-                class="form-control"
-                id="createTahunTerbit"
-                required
-              />
-              <label for="createPenerbit" class="mt-2">Penerbit</label>
-              <input
-                type="text"
-                class="form-control"
-                id="createPenerbit"
-                required
-              />
-              <label for="createJumlahHalaman" class="mt-2"
-                >Jumlah Halaman</label
-              >
-              <input
-                type="number"
-                class="form-control"
-                id="createJumlahHalaman"
-                required
-              />
+            </div>
+            <div class="col-md-3 mb-3">
+              <label for="filter-status" class="form-label fw-bold">Filter Status</label>
+              <select class="form-select" id="filter-status">
+                <option value="">Semua Status</option>
+                <option value="tersedia">Tersedia</option>
+                <option value="dipinjam">Dipinjam</option>
+                <option value="favorit">Favorit</option>
+              </select>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Tombol Tambah dan Statistik -->
+        <div class="d-flex justify-content-between mb-4">
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">
+            <i class="bi bi-plus-lg"></i> Tambah Buku
+          </button>
+          <button class="btn btn-secondary" id="statisticsButton">
+            <i class="bi bi-bar-chart"></i> Lihat Statistik
+          </button>
+        </div>
+    
+        <!-- Tabel Buku -->
+        <div class="table-responsive mt-4">
+          <table class="table table-striped table-hover">
+            <thead class="table-primary text-center">
+              <tr>
+                <th>No</th>
+                <th>Judul</th>
+                <th>Pengarang</th>
+                <th>Genre</th>
+                <th>Tahun Terbit</th>
+                <th>Penerbit</th>
+                <th>Jumlah Halaman</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              <!-- Data akan dimasukkan di sini -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    
+      <!-- Modal Tambah Buku -->
+      <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+              <h5 class="modal-title" id="createModalLabel">Tambah Buku</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="createJudul" class="form-label">Judul</label>
+                <input type="text" class="form-control" id="createJudul" required />
+              </div>
+              <div class="mb-3">
+                <label for="createPengarang" class="form-label">Pengarang</label>
+                <input type="text" class="form-control" id="createPengarang" required />
+              </div>
+              <div class="mb-3">
+                <label for="createGenre" class="form-label">Genre</label>
+                <select class="form-select" id="createGenre" required>
+                  <option value="" disabled selected>Pilih Genre</option>
+                  <option value="Fiksi">Fiksi</option>
+                  <option value="Non-Fiksi">Non-Fiksi</option>
+                  <option value="Sains">Sains</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="createTahunTerbit" class="form-label">Tahun Terbit</label>
+                <input type="number" class="form-control" id="createTahunTerbit" required />
+              </div>
+              <div class="mb-3">
+                <label for="createPenerbit" class="form-label">Penerbit</label>
+                <input type="text" class="form-control" id="createPenerbit" required />
+              </div>
+              <div class="mb-3">
+                <label for="createJumlahHalaman" class="form-label">Jumlah Halaman</label>
+                <input type="number" class="form-control" id="createJumlahHalaman" required />
+              </div>
             </div>
             <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Tutup
-              </button>
-              <button type="button" class="btn btn-primary" onclick="insert()">
-                Simpan
-              </button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+              <button type="button" class="btn btn-primary" onclick="insert()">Simpan</button>
             </div>
           </div>
         </div>
       </div>
-
+    
       <!-- Modal for Edit -->
-      <div
-        class="modal fade"
-        id="editModal"
-        tabindex="-1"
-        aria-labelledby="editModalLabel"
-        aria-hidden="true"
-      >
+      <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="editModalLabel">Edit Buku</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               <input type="hidden" id="editId" />
-              <label for="editJudul">Judul</label>
-              <input type="text" class="form-control" id="editJudul" required />
-              <label for="editPengarang" class="mt-2">Pengarang</label>
-              <input
-                type="text"
-                class="form-control"
-                id="editPengarang"
-                required
-              />
-              <label for="editGenre" class="mt-2">Genre</label>
-              <select class="form-select" id="editGenre" required>
-                <option value="" disabled selected>Pilih Genre</option>
-                <option value="Fiksi">Fiksi</option>
-                <option value="Non-Fiksi">Non-Fiksi</option>
-                <option value="Sains">Sains</option>
-              </select>
-              <label for="editTahunTerbit" class="mt-2">Tahun Terbit</label>
-              <input
-                type="number"
-                class="form-control"
-                id="editTahunTerbit"
-                required
-              />
-              <label for="editPenerbit" class="mt-2">Penerbit</label>
-              <input
-                type="text"
-                class="form-control"
-                id="editPenerbit"
-                required
-              />
-              <label for="editJumlahHalaman" class="mt-2">Jumlah Halaman</label>
-              <input
-                type="number"
-                class="form-control"
-                id="editJumlahHalaman"
-                required
-              />
+              <div class="mb-3">
+                <label for="editJudul" class="form-label">Judul</label>
+                <input type="text" class="form-control" id="editJudul" required />
+              </div>
+              <div class="mb-3">
+                <label for="editPengarang" class="form-label">Pengarang</label>
+                <input type="text" class="form-control" id="editPengarang" required />
+              </div>
+              <div class="mb-3">
+                <label for="editGenre" class="form-label">Genre</label>
+                <select class="form-select" id="editGenre" required>
+                  <option value="" disabled selected>Pilih Genre</option>
+                  <option value="Fiksi">Fiksi</option>
+                  <option value="Non-Fiksi">Non-Fiksi</option>
+                  <option value="Sains">Sains</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="editTahunTerbit" class="form-label">Tahun Terbit</label>
+                <input type="number" class="form-control" id="editTahunTerbit" required />
+              </div>
+              <div class="mb-3">
+                <label for="editPenerbit" class="form-label">Penerbit</label>
+                <input type="text" class="form-control" id="editPenerbit" required />
+              </div>
+              <div class="mb-3">
+                <label for="editJumlahHalaman" class="form-label">Jumlah Halaman</label>
+                <input type="number" class="form-control" id="editJumlahHalaman" required />
+              </div>
             </div>
             <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Tutup
-              </button>
-              <button type="button" class="btn btn-primary" onclick="update()">
-                Perbarui
-              </button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+              <button type="button" class="btn btn-primary" onclick="update()">Perbarui</button>
             </div>
           </div>
         </div>
       </div>
-
+    
       <!-- Modal for Delete -->
-      <div
-        class="modal fade"
-        id="deleteModal"
-        tabindex="-1"
-        aria-labelledby="deleteModalLabel"
-        aria-hidden="true"
-      >
+      <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="deleteModalLabel">Hapus Buku</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               <p>Apakah Anda yakin ingin menghapus buku ini?</p>
               <input type="hidden" id="deleteId" />
             </div>
             <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Tidak
-              </button>
-              <button
-                type="button"
-                class="btn btn-danger"
-                onclick="deleteBook()"
-              >
-                Hapus
-              </button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+              <button type="button" class="btn btn-danger" onclick="deleteBook()">Hapus</button>
             </div>
           </div>
         </div>
       </div>
     </div>
+    
+      
+      <!-- Bootstrap Icons -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+      
 
-    <!-- Modal for Detail -->
-    <div
-      class="modal fade"
-      id="detailModal"
-      tabindex="-1"
-      aria-labelledby="detailModalPinjamLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="detailModalLabel">Detail Buku</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <p><strong>Judul:</strong> <span id="detailJudul"></span></p>
-            <p>
-              <strong>Pengarang:</strong> <span id="detailPengarang"></span>
-            </p>
-            <p><strong>Genre:</strong> <span id="detailGenre"></span></p>
-            <p>
-              <strong>Tahun Terbit:</strong>
-              <span id="detailTahunTerbit"></span>
-            </p>
-            <p><strong>Penerbit:</strong> <span id="detailPenerbit"></span></p>
-            <p>
-              <strong>Jumlah Halaman:</strong>
-              <span id="detailJumlahHalaman"></span>
-            </p>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Tutup
-            </button>
-          </div>
+      <div class="container py-4">
+
+        <!-- Modal for Edit -->
+        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title" id="editModalLabel">Edit Buku</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="editId" />
+                        <div class="mb-3">
+                            <label for="editJudul" class="form-label">Judul</label>
+                            <input type="text" class="form-control" id="editJudul" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="editPengarang" class="form-label">Pengarang</label>
+                            <input type="text" class="form-control" id="editPengarang" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="editGenre" class="form-label">Genre</label>
+                            <select class="form-select" id="editGenre" required>
+                                <option value="" disabled selected>Pilih Genre</option>
+                                <option value="Fiksi">Fiksi</option>
+                                <option value="Non-Fiksi">Non-Fiksi</option>
+                                <option value="Sains">Sains</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editTahunTerbit" class="form-label">Tahun Terbit</label>
+                            <input type="number" class="form-control" id="editTahunTerbit" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="editPenerbit" class="form-label">Penerbit</label>
+                            <input type="text" class="form-control" id="editPenerbit" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="editJumlahHalaman" class="form-label">Jumlah Halaman</label>
+                            <input type="number" class="form-control" id="editJumlahHalaman" required />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        <button type="button" class="btn btn-primary" onclick="update()">Perbarui</button>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-
-    <!-- modal peminjaman -->
-    <div
-      class="modal fade"
-      id="borrowModal"
-      tabindex="-1"
-      aria-labelledby="borrowModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="borrowModalLabel">Pinjam Buku</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <form id="borrowForm">
-              <div class="mb-3">
-                <label for="borrowerName" class="form-label"
-                  >Nama Peminjam</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="borrowerName"
-                  required
-                />
-              </div>
-              <div class="mb-3">
-                <label for="borrowDate" class="form-label"
-                  >Tanggal Pinjam</label
-                >
-                <input
-                  type="date"
-                  class="form-control"
-                  id="borrowDate"
-                  required
-                />
-              </div>
-              <div class="mb-3">
-                <label for="returnDate" class="form-label"
-                  >Tanggal Kembali</label
-                >
-                <input
-                  type="date"
-                  class="form-control"
-                  id="returnDate"
-                  required
-                />
-              </div>
-              <div class="mb-3">
-                <label for="contact" class="form-label">Kontak</label>
-                <input type="text" class="form-control" id="contact" required />
-              </div>
-              <div class="mb-3">
-                <label for="note" class="form-label">Catatan</label>
-                <textarea class="form-control" id="note"></textarea>
-              </div>
-              <input type="hidden" id="borrowBookId" />
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Batal
-            </button>
-            <button type="button" class="btn btn-primary" id="borrowSaveBtn">
-              Pinjam
-            </button>
-          </div>
+    
+        <!-- Modal for Delete -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title" id="deleteModalLabel">Hapus Buku</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Apakah Anda yakin ingin menghapus buku ini?</p>
+                        <input type="hidden" id="deleteId" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+                        <button type="button" class="btn btn-danger" onclick="deleteBook()">Hapus</button>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+    
+        <!-- Modal for Detail -->
+        <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header bg-info text-white">
+                        <h5 class="modal-title" id="detailModalLabel">Detail Buku</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Judul:</strong> <span id="detailJudul"></span></p>
+                        <p><strong>Pengarang:</strong> <span id="detailPengarang"></span></p>
+                        <p><strong>Genre:</strong> <span id="detailGenre"></span></p>
+                        <p><strong>Tahun Terbit:</strong> <span id="detailTahunTerbit"></span></p>
+                        <p><strong>Penerbit:</strong> <span id="detailPenerbit"></span></p>
+                        <p><strong>Jumlah Halaman:</strong> <span id="detailJumlahHalaman"></span></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Modal for Borrow -->
+        <div class="modal fade" id="borrowModal" tabindex="-1" aria-labelledby="borrowModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-warning text-white">
+                        <h5 class="modal-title" id="borrowModalLabel">Pinjam Buku</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="borrowForm">
+                            <div class="mb-3">
+                                <label for="borrowerName" class="form-label">Nama Peminjam</label>
+                                <input type="text" class="form-control" id="borrowerName" required />
+                            </div>
+                            <div class="mb-3">
+                                <label for="borrowDate" class="form-label">Tanggal Pinjam</label>
+                                <input type="date" class="form-control" id="borrowDate" required />
+                            </div>
+                            <div class="mb-3">
+                                <label for="returnDate" class="form-label">Tanggal Kembali</label>
+                                <input type="date" class="form-control" id="returnDate" required />
+                            </div>
+                            <div class="mb-3">
+                                <label for="contact" class="form-label">Kontak</label>
+                                <input type="text" class="form-control" id="contact" required />
+                            </div>
+                            <div class="mb-3">
+                                <label for="note" class="form-label">Catatan</label>
+                                <textarea class="form-control" id="note"></textarea>
+                            </div>
+                            <input type="hidden" id="borrowBookId" />
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="button" class="btn btn-primary" id="borrowSaveBtn">Pinjam</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Button Sync Logs -->
+        <div class="text-center py-3">
+            <button class="btn btn-success" id="syncLogsBtn">Sinkronkan Log</button>
+            <button class="btn btn-primary" onclick="syncDataToServer()">Sync to Server</button>
+            <button class="btn btn-primary" onclick="syncDataFromServer()">Sync from Server</button>
+        </div>
     </div>
-
-    <!-- Modal Detail Buku dan Peminjaman -->
-<div class="modal fade" id="detailModalPinjam" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="detailModalLabel">Detail Buku dan Peminjaman</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <!-- Detail Buku -->
-        <h6>Detail Buku</h6>
-        <p><strong>Judul:</strong> <span id="detailPinjamJudul"></span></p>
-        <p><strong>Pengarang:</strong> <span id="detailPinjamPengarang"></span></p>
-        <p><strong>Genre:</strong> <span id="detailPinjamGenre"></span></p>
-        <p><strong>Tahun Terbit:</strong> <span id="detailPinjamTahunTerbit"></span></p>
-        <p><strong>Penerbit:</strong> <span id="detailPinjamPenerbit"></span></p>
-        <p><strong>Jumlah Halaman:</strong> <span id="detailPinjamJumlahHalaman"></span></p>
-
-        <!-- Detail Peminjaman -->
-        <h6>Detail Peminjaman</h6>
-        <p><strong>Nama Peminjam:</strong> <span id="detailPeminjam"></span></p>
-        <p><strong>Tanggal Pinjam:</strong> <span id="detailTanggalPinjam"></span></p>
-        <p><strong>Tanggal Kembali:</strong> <span id="detailTanggalKembali"></span></p>
-        <p><strong>Kontak:</strong> <span id="detailKontak"></span></p>
-        <p><strong>Catatan:</strong> <span id="detailCatatan"></span></p>
-      </div>
-      <div class="modal-footer">
-        <!-- Tombol Kembalikan Buku -->
-        <button type="button" class="btn btn-danger" id="btnKembalikanBuku" onclick="returnBook(currentBookId)">Kembalikan Buku</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<button id="syncLogsBtn">Sinkronkan Log</button>
-
-
-
-<!-- <button onclick="syncToServer()">Sync to Server</button>
-<button onclick="syncFromServer()">Sync from Server</button> -->
-<button onclick="syncDataToServer()">Sync to Server</button>
-<button onclick="syncDataFromServer()">Sync from Server</button>
-
-
+    
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -519,75 +401,74 @@
       function returnBook(bookId) {
         openDB()
           .then((db) => {
-            console.log("Daftar Object Store setelah DB dibuka:", db.objectStoreNames); // Debugging daftar object store setelah DB dibuka
-      
-            const transaction = db.transaction(["Books", "peminjamans", "SyncQueue"], "readwrite");
-            const bookStore = transaction.objectStore("Books");
+            console.log("Daftar Object Store setelah DB dibuka:", db.objectStoreNames);
+    
+            const transaction = db.transaction(["books", "peminjamans", "SyncQueue"], "readwrite");
+            const bookStore = transaction.objectStore("books");
             const peminjamanStore = transaction.objectStore("peminjamans");
-            const logStore = transaction.objectStore("SyncQueue"); // Object store untuk log
-      
-            // Mendapatkan buku berdasarkan ID
+            const logStore = transaction.objectStore("SyncQueue");
+    
             const bookRequest = bookStore.get(bookId);
-      
+    
             bookRequest.onsuccess = (event) => {
               const book = event.target.result;
               if (book) {
-                const originalBook = { ...book }; // Salin data buku sebelum perubahan
-                
+                const originalBook = { ...book };
+    
                 if (!book.pinjam) {
                   alert(`Buku "${book.judul}" belum dipinjam.`);
                   return;
                 }
-      
-                book.pinjam = false; // Mengubah status pinjam menjadi false
-      
+    
+                book.pinjam = false; // Update status pinjam menjadi false
+    
                 // Update status buku setelah pengembalian
-                bookStore.put(book).onsuccess = () => {
-                  // Log untuk mengupdate status pinjam
+                const updateBookRequest = bookStore.put(book);
+                updateBookRequest.onsuccess = () => {
                   const updateLog = {
                     operation: "update",
-                    table: "Books", // Nama tabel untuk buku
-                    recordId: bookId, // ID buku yang diubah
+                    table: "books",
+                    recordId: bookId,
                     changes: {
-                      before: originalBook, // Data sebelum perubahan
-                      after: book, // Data setelah perubahan
+                      before: originalBook,
+                      after: book,
                     },
                     timestamp: new Date().toISOString(),
-                    synced: false, // Data belum tersinkronisasi
+                    synced: false,
                   };
-      
+    
                   logStore.add(updateLog).onsuccess = () => {
                     console.log("Log update status pinjam berhasil ditambahkan:", updateLog);
                   };
-      
+    
                   // Hapus data peminjaman
                   const index = peminjamanStore.index("book_id");
                   const range = IDBKeyRange.only(bookId);
-      
+    
                   index.openCursor(range).onsuccess = (e) => {
                     const cursor = e.target.result;
                     if (cursor) {
                       const peminjamanId = cursor.primaryKey;
-      
-                      peminjamanStore.delete(peminjamanId).onsuccess = () => {
-                        // Log untuk menghapus data peminjaman
+    
+                      const deleteRequest = peminjamanStore.delete(peminjamanId);
+                      deleteRequest.onsuccess = () => {
                         const deleteLog = {
                           operation: "delete",
-                          table: "peminjamans", // Nama tabel peminjaman
-                          recordId: peminjamanId, // ID peminjaman yang dihapus
+                          table: "peminjamans",
+                          recordId: peminjamanId,
                           timestamp: new Date().toISOString(),
-                          synced: false, // Data belum tersinkronisasi
+                          synced: false,
                         };
-      
+    
                         logStore.add(deleteLog).onsuccess = () => {
                           console.log("Log delete data peminjaman berhasil ditambahkan:", deleteLog);
                         };
-      
+    
                         $("#detailModalPinjam").modal("hide");
                         fetchBooks(); // Refresh tampilan buku setelah pengembalian
                       };
-      
-                      peminjamanStore.delete(peminjamanId).onerror = (err) => {
+    
+                      deleteRequest.onerror = (err) => {
                         console.error("Gagal menghapus data peminjaman:", err);
                         alert("Terjadi kesalahan saat menghapus data peminjaman.");
                       };
@@ -595,15 +476,9 @@
                       alert("Tidak ada data peminjaman untuk buku ini.");
                     }
                   };
-      
-                  // Menangani kesalahan dalam transaksi
-                  transaction.onerror = (err) => {
-                    console.error("Terjadi kesalahan dalam transaksi:", err);
-                    alert("Terjadi kesalahan saat memproses pengembalian buku.");
-                  };
                 };
-      
-                bookStore.put(book).onerror = (err) => {
+    
+                updateBookRequest.onerror = (err) => {
                   console.error("Gagal mengupdate status buku:", err);
                   alert("Gagal mengupdate status buku. Silakan coba lagi.");
                 };
@@ -611,8 +486,7 @@
                 alert("Buku tidak ditemukan.");
               }
             };
-      
-            // Menangani kesalahan saat mengambil buku
+    
             bookRequest.onerror = (event) => {
               console.error("Error saat mengambil data buku:", event.target.error);
               alert("Terjadi kesalahan saat mengambil data buku.");
@@ -622,8 +496,8 @@
             console.error("Error membuka database:", error);
             alert("Terjadi kesalahan membuka database. Silakan coba lagi.");
           });
-      }
-      
+    }
+    
 
       
 
@@ -759,15 +633,15 @@ $('#filter-status').on('change', function () {
       async function insert() {
         try {
           console.log("Memulai fungsi insert...");
-      
+        
           // Membuka database
           const db = await openDB();
-      
+        
           // Memulai transaksi untuk store 'Books' dan 'SyncQueue'
           const transaction = db.transaction([storeName, "SyncQueue"], "readwrite");
           const booksStore = transaction.objectStore(storeName);
           const logStore = transaction.objectStore("SyncQueue");
-      
+        
           // Data buku yang akan ditambahkan
           const book = {
             judul: $("#createJudul").val(),
@@ -779,48 +653,77 @@ $('#filter-status').on('change', function () {
             pinjam: false,
             favorit: false,
           };
-      
+        
           // Validasi data buku
-          if (!book.judul || !book.pengarang || !book.genre) {
+          if (!book.judul || !book.pengarang || !book.genre || !book.tahunTerbit || !book.penerbit || !book.jumlahHalaman) {
             console.error("Data buku tidak lengkap:", book);
+            alert("Harap lengkapi semua data buku.");
+            return;
+          }
+      
+          // Pastikan tahun terbit dan jumlah halaman adalah angka
+          if (isNaN(book.tahunTerbit)) {
+            console.error("Tahun terbit harus berupa angka:", book.tahunTerbit);
+            alert("Tahun terbit harus berupa angka.");
+            return;
+          }
+      
+          if (isNaN(book.jumlahHalaman)) {
+            console.error("Jumlah halaman harus berupa angka:", book.jumlahHalaman);
+            alert("Jumlah halaman harus berupa angka.");
             return;
           }
       
           // Menambahkan buku ke object store 'Books'
           const bookId = await new Promise((resolve, reject) => {
             const request = booksStore.add(book);
-            request.onsuccess = (event) => resolve(event.target.result);
-            request.onerror = (event) => reject(event.target.error);
+            request.onsuccess = (event) => resolve(event.target.result); // bookId
+            request.onerror = (event) => {
+              console.error("Gagal menambahkan buku:", event.target.error);
+              reject(event.target.error);
+            };
           });
-      
+        
           console.log("Buku berhasil ditambahkan dengan ID:", bookId);
-      
+        
           // Membuat log untuk sinkronisasi
           const log = {
             operation: "insert",
             table: storeName,
-            recordId: bookId,
-            data: book,
+            recordId: bookId, // Pastikan ini ada di log
+            data: book,  // Data buku yang valid
             timestamp: new Date().toISOString(),
             synced: false, // Data belum tersinkron ke server
           };
-      
+          
+        
+
+          
           // Menambahkan log ke object store 'SyncQueue'
           await new Promise((resolve, reject) => {
             const request = logStore.add(log);
             request.onsuccess = () => resolve();
-            request.onerror = (event) => reject(event.target.error);
+            request.onerror = (event) => {
+              console.error("Gagal menambahkan log:", event.target.error);
+              reject(event.target.error);
+            };
           });
-      
+
+          book.recordId = bookId;  // Menambahkan recordId yang baru saja dibuat
+
+        
           console.log("Log sinkronisasi berhasil ditambahkan:", log);
-      
+        
           // Menutup modal dan memperbarui tampilan tabel
           $("#createModal").modal("hide");
           fetchBooks();
         } catch (error) {
           console.error("Gagal menambahkan buku atau log sinkronisasi:", error);
+          alert("Terjadi kesalahan, coba lagi nanti.");
         }
       }
+      
+      
       
       
 
@@ -849,86 +752,108 @@ $('#filter-status').on('change', function () {
         const transaction = db.transaction([storeName, logStoreName], "readwrite");
         const store = transaction.objectStore(storeName);
         const logStore = transaction.objectStore(logStoreName);
-      
-        // Ambil data buku sebelum diubah
-        const bookId = parseInt($("#editId").val(), 10);
+    
+        const recordId = parseInt($("#editId").val(), 10);
         let originalBook;
-      
+    
         try {
-          originalBook = await new Promise((resolve, reject) => {
-            const request = store.get(bookId);
-            request.onsuccess = () => resolve(request.result);
-            request.onerror = () => reject(request.error);
-          });
+            originalBook = await new Promise((resolve, reject) => {
+                const request = store.get(recordId);
+                request.onsuccess = () => resolve(request.result);
+                request.onerror = () => reject(request.error);
+            });
+    
+            if (!originalBook) {
+                alert("Buku tidak ditemukan.");
+                return;
+            }
         } catch (error) {
-          console.error("Gagal mengambil data buku sebelum update:", error);
-          alert("Gagal mengambil data buku sebelum update. Silakan coba lagi.");
-          return;
+            console.error("Gagal mengambil data buku sebelum update:", error);
+            alert("Gagal mengambil data buku sebelum update.");
+            return;
         }
-      
+    
         // Data buku yang akan diperbarui
         const updatedBook = {
-          id: bookId,
-          judul: $("#editJudul").val(),
-          pengarang: $("#editPengarang").val(),
-          genre: $("#editGenre").val(),
-          tahunTerbit: $("#editTahunTerbit").val(),
-          penerbit: $("#editPenerbit").val(),
-          jumlahHalaman: $("#editJumlahHalaman").val(),
+            id: recordId,
+            judul: $("#editJudul").val(),
+            pengarang: $("#editPengarang").val(),
+            genre: $("#editGenre").val(),
+            tahunTerbit: $("#editTahunTerbit").val(),
+            penerbit: $("#editPenerbit").val(),
+            jumlahHalaman: $("#editJumlahHalaman").val(),
+            favorit: originalBook.favorit || false,
+            pinjam: originalBook.pinjam || false,
         };
-      
+    
         // Validasi input
         if (!updatedBook.judul || !updatedBook.pengarang) {
-          alert("Judul dan pengarang tidak boleh kosong!");
-          return;
+            alert("Judul dan pengarang tidak boleh kosong!");
+            return;
         }
-      
-        // Update data buku di object store 'Books'
+    
+        // Cek perubahan yang terjadi
+        let changes = {};
+        let hasChanges = false;
+    
+        Object.keys(updatedBook).forEach((key) => {
+            if (updatedBook[key] !== originalBook[key]) {
+                if (!changes.before) changes.before = {};
+                if (!changes.after) changes.after = {};
+                changes.before[key] = originalBook[key];
+                changes.after[key] = updatedBook[key];
+                hasChanges = true;
+            }
+        });
+    
+        if (!hasChanges) {
+            alert("Tidak ada perubahan pada data buku.");
+            return;
+        }
+    
         try {
-          await new Promise((resolve, reject) => {
-            const request = store.put(updatedBook);
-            request.onsuccess = resolve;
-            request.onerror = () => reject(request.error);
-          });
-      
-          // Tambahkan log perubahan ke object store 'SyncQueue'
-          const log = {
-            operation: "update",
-            book_id: updatedBook.id,
-            changes: {
-              before: originalBook || {}, // Data sebelum update
-              after: updatedBook,         // Data setelah update
-            },
-            timestamp: new Date().toISOString(), // Waktu perubahan
-            synced: false, // Menandakan belum disinkronkan
-          };
-      
-          await new Promise((resolve, reject) => {
-            const request = logStore.add(log);
-            request.onsuccess = resolve;
-            request.onerror = () => reject(request.error);
-          });
-      
-          console.log("Log update berhasil disimpan:", log);
-      
-          // Tutup modal dan refresh data buku
-          $("#editModal").modal("hide");
-          fetchBooks();
+            // Update data di object store
+            await new Promise((resolve, reject) => {
+                const request = store.put(updatedBook);
+                request.onsuccess = resolve;
+                request.onerror = () => reject(request.error);
+            });
+    
+            // Simpan log perubahan ke SyncQueue
+            const log = {
+              operation: "insert",
+              table: storeName,
+              recordId: bookId,
+              data: book,  // Data buku yang valid
+              timestamp: new Date().toISOString(),
+              synced: false, // Data belum tersinkron ke server
+            };
+    
+            await new Promise((resolve, reject) => {
+                const request = logStore.add(log);
+                request.onsuccess = resolve;
+                request.onerror = () => reject(request.error);
+            });
+    
+            console.log("Log update berhasil disimpan:", log);
+    
+            // Tutup modal dan refresh data buku
+            $("#editModal").modal("hide");
+            fetchBooks();
         } catch (error) {
-          console.error("Gagal mengupdate data buku:", error);
-          alert("Gagal mengupdate data buku. Silakan coba lagi.");
+            console.error("Gagal mengupdate data buku:", error);
+            alert("Gagal mengupdate data buku.");
         }
-      
-        // Callback transaksi selesai
+    
         transaction.oncomplete = () => {
-          console.log("Transaksi update selesai.");
+            console.log("Transaksi update selesai.");
         };
-      
+    
         transaction.onerror = () => {
-          console.error("Terjadi kesalahan pada transaksi update.");
+            console.error("Terjadi kesalahan pada transaksi update.");
         };
-      } 
-
+    }
+    
       
 
       function openDeleteModal(id) {
@@ -941,77 +866,93 @@ $('#filter-status').on('change', function () {
         const transaction = db.transaction([storeName, logStoreName], "readwrite");
         const store = transaction.objectStore(storeName);
         const logStore = transaction.objectStore(logStoreName);
-      
+    
         const id = parseInt($("#deleteId").val(), 10);
-      
-        // Ambil data buku sebelum dihapus
-        let bookToDelete;
-      
-        try {
-          bookToDelete = await new Promise((resolve, reject) => {
-            const request = store.get(id);
-            request.onsuccess = () => resolve(request.result);
-            request.onerror = () => reject(request.error);
-          });
-      
-          if (!bookToDelete) {
-            alert("Buku dengan ID tersebut tidak ditemukan.");
-            $("#deleteModal").modal("hide");
+        if (isNaN(id)) {
+            alert("ID tidak valid.");
             return;
-          }
-      
-          // Konfirmasi penghapusan data buku
-          const confirmDelete = confirm(
-            `Apakah Anda yakin ingin menghapus buku "${bookToDelete.judul}"?`
-          );
-          if (!confirmDelete) {
-            $("#deleteModal").modal("hide");
-            return;
-          }
-      
-          // Hapus data buku
-          await new Promise((resolve, reject) => {
-            const request = store.delete(id);
-            request.onsuccess = resolve;
-            request.onerror = () => reject(request.error);
-          });
-      
-          // Tambahkan log penghapusan ke SyncQueue
-          const log = {
-            operation: "delete",
-            book_id: id,
-            data: bookToDelete, // Data buku yang dihapus
-            timestamp: new Date().toISOString(), // Waktu penghapusan
-            synced: false, // Menandakan belum disinkronkan
-          };
-      
-          await new Promise((resolve, reject) => {
-            const request = logStore.add(log);
-            request.onsuccess = resolve;
-            request.onerror = () => reject(request.error);
-          });
-      
-          console.log("Log penghapusan berhasil disimpan:", log);
-      
-          // Tutup modal dan refresh daftar buku
-          $("#deleteModal").modal("hide");
-          fetchBooks();
-        } catch (error) {
-          console.error("Gagal menghapus buku:", error);
-          alert("Gagal menghapus buku. Silakan coba lagi.");
         }
-      
+    
+        let bookToDelete;
+    
+        try {
+            // Ambil data buku sebelum dihapus
+            bookToDelete = await new Promise((resolve, reject) => {
+                const request = store.get(id);
+                request.onsuccess = () => resolve(request.result);
+                request.onerror = () => reject(request.error);
+            });
+    
+            if (!bookToDelete) {
+                alert("Buku dengan ID tersebut tidak ditemukan.");
+                $("#deleteModal").modal("hide");
+                return;
+            }
+    
+            // Konfirmasi penghapusan data buku
+            const confirmDelete = confirm(`Apakah Anda yakin ingin menghapus buku "${bookToDelete.judul}"?`);
+            if (!confirmDelete) {
+                $("#deleteModal").modal("hide");
+                return;
+            }
+    
+            // Hapus data buku
+            await new Promise((resolve, reject) => {
+                const request = store.delete(id);
+                request.onsuccess = resolve;
+                request.onerror = () => reject(request.error);
+            });
+    
+            // Validasi bahwa data buku tidak kosong sebelum menyimpan log
+            if (bookToDelete) {
+                // Format log agar sesuai dengan standar perubahan data
+                // Format log agar sesuai dengan standar perubahan data
+const log = {
+  operation: "delete",
+  recordId: id, // ID buku yang dihapus
+  table: "books",
+  data: { recordId: 3 }, // Pastikan recordId ada di dalam data
+  // Hapus data buku yang dihapus dari log
+  timestamp: new Date().toISOString(),
+  synced: false // Belum tersinkronisasi ke server
+};
+
+              
+    
+                // Menyimpan log penghapusan
+                await new Promise((resolve, reject) => {
+                    const request = logStore.add(log);
+                    request.onsuccess = resolve;
+                    request.onerror = (event) => {
+                        console.error("Gagal menyimpan log:", event.target.error);
+                        reject(event.target.error);
+                    };
+                });
+    
+                console.log("Log penghapusan berhasil disimpan:", log);
+            }
+    
+            // Tutup modal dan refresh daftar buku
+            $("#deleteModal").modal("hide");
+            fetchBooks();
+    
+        } catch (error) {
+            console.error("Gagal menghapus buku:", error);
+            alert("Gagal menghapus buku. Silakan coba lagi.");
+        }
+    
         // Callback transaksi selesai
         transaction.oncomplete = () => {
-          console.log("Transaksi delete selesai.");
+            console.log("Transaksi delete selesai.");
         };
-      
-        transaction.onerror = () => {
-          console.error("Terjadi kesalahan pada transaksi delete.");
+    
+        // Penanganan kesalahan pada transaksi
+        transaction.onerror = (event) => {
+            console.error("Terjadi kesalahan pada transaksi delete:", event.target.error);
         };
-      }
-      
-      
+    }
+    
+    
 
       $(document).ready(() => {
         fetchBooks();
