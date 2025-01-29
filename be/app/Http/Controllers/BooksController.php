@@ -92,8 +92,6 @@ class BooksController extends Controller
                 'tahun_terbit' => 'required|integer',
                 'penerbit' => 'required|string',
                 'jumlah_halaman' => 'required|integer',
-                'pinjam' => 'boolean',
-                'favorit' => 'boolean',
             ]);
 
             // Simpan data buku ke tabel 'books'
